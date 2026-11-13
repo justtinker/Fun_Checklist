@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BBQ Night with Nelson 'n Family</title>
+<meta property="og:title" content="BBQ Night with Nelson 'n Family">
+<meta property="og:description" content="Fri 13 Nov · Ajman. Tick what you'll bring; your name shows next to it, live for everyone.">
+<meta name="theme-color" content="#120E0C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Plan: one night-BBQ world. Smoky charcoal, ember glow from below, rising sparks, glass cards, phone-width column */
+  --bg:#120E0C;
+  --ink:#FBF3EC;
+  --muted:#B4A497;
+  --line:rgba(255,226,204,.12);
+  --ember:#FF6B35;
+  --amber:#FFB347;
+  --ok:#57D9A3;
+  --danger:#FF5A5F;
+  --on-bright:#1B120D;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font:16px/1.45 var(--body);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+body.locked{overflow:hidden}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+svg{display:block}
+
+/* ---------- Background ---------- */
+.bg{position:fixed;inset:-8%;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(65% 42% at 50% 108%, rgba(255,96,38,.55), transparent 70%),
+    radial-gradient(40% 32% at 92% -4%, rgba(255,179,71,.17), transparent 70%),
+    radial-gradient(42% 40% at -6% 38%, rgba(190,58,28,.24), transparent 70%),
+    linear-gradient(180deg,#18110E 0%,#120E0C 55%,#1C100A 100%);
+  animation:breathe 9s ease-in-out infinite alternate}
+@keyframes breathe{from{transform:scale(1)}to{transform:scale(1.07)}}
+#embers{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+
+.wrap{max-width:640px;margin:0 auto;padding:calc(22px + env(safe-area-inset-top)) 16px calc(116px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:16px}
+.glass{background:linear-gradient(180deg,rgba(255,244,235,.085),rgba(255,244,235,.035));border:1px solid var(--line);border-radius:22px;-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);box-shadow:0 12px 32px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06)}
+
+/* ---------- Hero ---------- */
+.hero{display:flex;flex-direction:column;gap:10px}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.kicker{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--amber)}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,9.5vw,52px);line-height:1.02;letter-spacing:-.02em;margin:0;text-wrap:balance;background:linear-gradient(180deg,#FFF7F0 35%,#FFC59C);-webkit-background-clip:text;background-clip:text;color:transparent}
+.live{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--muted);padding:5px 11px;border-radius:99px;background:rgba(255,255,255,.05);border:1px solid var(--line);white-space:nowrap}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.live[data-s="live"] i{background:var(--ok);animation:pulse 2s infinite}
+.live[data-s="offline"] i{background:#E0A526}
+.live[data-s="demo"] i{background:var(--ember)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(87,217,163,.6)}100%{box-shadow:0 0 0 9px rgba(87,217,163,0)}}
+.here{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);min-height:26px}
+.stack{display:flex}
+.stack .av{box-shadow:0 0 0 2px var(--bg)}
+.stack .av + .av{margin-left:-7px}
+
+/* ---------- Avatars ---------- */
+.av{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;color:var(--on-bright);background:var(--c,#999)}
+.av.lg{width:34px;height:34px;font-size:14px}
+
+/* ---------- Stats card ---------- */
+.stats{display:flex;align-items:center;gap:18px;padding:18px}
+.ring-wrap{position:relative;width:108px;height:108px;flex:none}
+.ring{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-track{fill:none;stroke:rgba(255,255,255,.08);stroke-width:10}
+.ring-fill{fill:none;stroke:url(#ringGrad);stroke-width:10;stroke-linecap:round;stroke-dasharray:314.16;stroke-dashoffset:314.16;transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 0 6px rgba(255,120,60,.6))}
+.stats.complete .ring-fill{stroke:var(--ok);filter:drop-shadow(0 0 8px rgba(87,217,163,.7))}
+.ring-num{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:30px;font-variant-numeric:tabular-nums}
+.ring-num small{font-size:15px;color:var(--muted);margin-left:1px}
+.stat-text{min-width:0;display:flex;flex-direction:column;align-items:flex-start}
+.stat-main{margin:0;font-size:18px;font-weight:600}
+.stat-main b{font-family:var(--display);font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+.stat-sub{margin:2px 0 12px;color:var(--muted);font-size:14px}
+.you{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:99px;padding:4px 12px 4px 4px;font-size:14px;color:var(--muted);max-width:100%}
+.you b{color:var(--ink)}
+
+/* ---------- People strip ---------- */
+.strip-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 2px 8px}
+.strip-h h2{font-family:var(--display);font-size:18px;font-weight:700;margin:0}
+.strip-h span{font-size:13px;color:var(--muted)}
+.people{display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:2px 16px 6px;scroll-snap-type:x proximity;scrollbar-width:none}
+.people::-webkit-scrollbar{display:none}
+.person{--c:#999;flex:none;display:flex;align-items:center;gap:8px;padding:5px 8px 5px 5px;border-radius:99px;border:1px solid var(--line);background:rgba(255,244,235,.05);color:var(--ink);font-weight:700;font-size:14px;scroll-snap-align:start;transition:background .2s,border-color .2s,transform .15s,opacity .2s}
+.person:active{transform:scale(.95)}
+.person .n{min-width:22px;padding:1px 7px;border-radius:99px;background:rgba(255,255,255,.09);font-size:12px;text-align:center;font-variant-numeric:tabular-nums}
+.person.zero{opacity:.6}
+.person.on{opacity:1;background:color-mix(in srgb,var(--c) 22%,transparent);border-color:var(--c)}
+.person.me .av{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--c)}
+
+/* ---------- Filter bar ---------- */
+.filterbar{position:sticky;top:calc(8px + env(safe-area-inset-top));z-index:10;display:flex;align-items:center;gap:6px;padding:5px;border-radius:99px;background:rgba(30,22,18,.72)}
+.seg{display:flex;flex:1;gap:4px;min-width:0}
+.seg button{flex:1;border:0;background:none;color:var(--muted);font-weight:700;font-size:14px;padding:9px 8px;border-radius:99px;white-space:nowrap;transition:background .2s,color .2s}
+.seg button.on{background:var(--ink);color:var(--on-bright)}
+.seg button span{font-variant-numeric:tabular-nums;opacity:.75}
+.pf{--c:#999;flex:none;display:flex;align-items:center;gap:6px;border:1px solid var(--c);background:color-mix(in srgb,var(--c) 20%,transparent);border-radius:99px;padding:4px 10px 4px 4px;font-weight:700;font-size:13px;color:var(--ink);animation:popIn .25s cubic-bezier(.3,1.5,.5,1)}
+.edit-hint{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;border:1px dashed rgba(255,90,95,.45);background:rgba(255,90,95,.08);font-size:14px;color:#FFD3D4;animation:popIn .25s ease}
+.banner{padding:13px 15px;border-radius:16px;font-size:14px;border-left:3px solid var(--ember)}
+.banner b{color:var(--amber)}
+
+/* ---------- Sections & rows ---------- */
+#list{display:flex;flex-direction:column;gap:14px}
+.loading,.empty{color:var(--muted);text-align:center;padding:36px 0;margin:0}
+.sec{overflow:hidden}
+.sec-h{display:flex;align-items:center;gap:10px;padding:16px 14px 10px 16px}
+.sec-h h2{font-family:var(--display);font-size:19px;font-weight:700;line-height:1.2;margin:0;flex:1;min-width:0;text-wrap:balance;overflow-wrap:anywhere}
+.sec-count{font-size:13px;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.07);transition:background .3s,color .3s}
+.sec.complete .sec-count{color:var(--on-bright);background:var(--ok)}
+.sec-add{flex:none;width:34px;height:34px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--amber);display:grid;place-items:center;padding:0;transition:transform .15s}
+.sec-add:active{transform:scale(.9)}
+.sec-bar{height:3px;margin:0 16px 4px;border-radius:9px;background:rgba(255,255,255,.07);overflow:hidden}
+.sec-bar i{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--amber),var(--ember));transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.sec.complete .sec-bar i{background:var(--ok)}
+.sec ul{list-style:none;margin:0;padding:2px 0 6px}
+.sec-empty{margin:0;padding:6px 16px 16px;color:var(--muted);font-size:14px}
+.row{display:flex;align-items:center;gap:12px;padding:10px 12px 10px 14px;min-height:62px;border-top:1px solid rgba(255,226,204,.07);transition:background .3s}
+.row:first-child{border-top:0}
+.row.enter{animation:rowIn .45s cubic-bezier(.2,.9,.25,1) both}
+@keyframes rowIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.row.leave{animation:rowOut .32s ease forwards;min-height:0;overflow:hidden;pointer-events:none}
+@keyframes rowOut{to{opacity:0;transform:translateX(40px);height:0;padding-top:0;padding-bottom:0}}
+.row.mine{background:linear-gradient(90deg,rgba(255,107,53,.12),transparent 75%)}
+.tick{flex:none;width:32px;height:32px;border-radius:11px;border:2px solid rgba(255,226,204,.28);background:rgba(255,255,255,.03);display:grid;place-items:center;padding:0;color:var(--on-bright);transition:background .25s,border-color .25s,opacity .2s}
+.tick svg{opacity:0;transform:scale(.3);transition:opacity .2s,transform .3s cubic-bezier(.3,1.6,.5,1)}
+.row.done .tick{background:var(--ok);border-color:var(--ok)}
+.row.mine .tick{background:linear-gradient(135deg,var(--amber),var(--ember));border-color:transparent}
+.row.done .tick svg{opacity:1;transform:none}
+.row.pop .tick{animation:tickPop .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes tickPop{0%{transform:scale(.6)}45%{transform:scale(1.22)}100%{transform:scale(1)}}
+body.editing .tick{opacity:.35}
+.txt{flex:1;min-width:0;cursor:pointer;display:flex;flex-direction:column;gap:5px}
+.label{font-weight:600;overflow-wrap:anywhere}
+.meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.who{--c:#999;display:inline-flex;align-items:center;gap:6px;padding:2px 10px 2px 2px;border-radius:99px;font-size:13px;font-weight:700;background:color-mix(in srgb,var(--c) 17%,transparent);color:var(--c)}
+.who .av{width:20px;height:20px;font-size:10px}
+.note,.hintline{font-size:13px;color:var(--muted)}
+.assign{flex:none;border:1px dashed rgba(255,226,204,.28);background:none;color:var(--muted);border-radius:99px;padding:7px 12px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px}
+.more{flex:none;width:38px;height:38px;border-radius:12px;border:0;background:rgba(255,255,255,.05);color:var(--muted);display:grid;place-items:center;padding:0}
+.trash{flex:none;width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,90,95,.4);background:rgba(255,90,95,.13);color:var(--danger);display:grid;place-items:center;padding:0;animation:popIn .25s cubic-bezier(.3,1.5,.5,1)}
+@keyframes popIn{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+
+/* ---------- Dock ---------- */
+.dock{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;width:min(608px,calc(100% - 24px));display:flex;gap:6px;padding:7px;border-radius:24px;background:rgba(30,21,17,.78)}
+.dock-btn{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:62px;border:0;background:none;color:var(--ink);font-size:12px;font-weight:700;padding:6px 8px;border-radius:17px;transition:background .2s,color .2s}
+.dock-btn:active{background:rgba(255,255,255,.07)}
+.dock-btn.on{background:rgba(255,90,95,.18);color:var(--danger)}
+.dock-main{flex:1;border:0;border-radius:18px;background:linear-gradient(135deg,var(--amber),var(--ember));color:#1B0E07;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;box-shadow:0 8px 26px rgba(255,107,53,.38);transition:transform .15s}
+.dock-main:active{transform:scale(.97)}
+
+/* ---------- Buttons ---------- */
+.btn{border:0;border-radius:14px;padding:13px 18px;font-weight:800;font-size:15px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .12s}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:linear-gradient(135deg,var(--amber),var(--ember));color:#1B0E07}
+.btn.ghost{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink)}
+.btn.danger{background:none;color:var(--danger);padding-left:6px;padding-right:6px}
+.btn.danger-solid{background:var(--danger);color:#fff}
+.btn.small{padding:10px 14px;font-size:14px;border-radius:12px}
+
+/* ---------- Sheets ---------- */
+.scrim{position:fixed;inset:0;z-index:40;background:rgba(6,4,3,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);animation:fadeIn .2s ease}
+.scrim.closing{animation:fadeOut .2s ease forwards}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;max-width:640px;margin:0 auto;max-height:88vh;overflow:auto;overscroll-behavior:contain;background:linear-gradient(180deg,#261B16,#17100D);border:1px solid var(--line);border-bottom:0;border-radius:26px 26px 0 0;padding:10px 18px calc(22px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px;box-shadow:0 -20px 60px rgba(0,0,0,.5);animation:sheetUp .34s cubic-bezier(.2,.9,.25,1)}
+.sheet::before{content:"";align-self:center;flex:none;width:42px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);margin-bottom:4px}
+.sheet.closing{animation:sheetDown .2s ease forwards}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+@keyframes sheetDown{to{transform:translateY(100%)}}
+@keyframes fadeIn{from{opacity:0}}
+@keyframes fadeOut{to{opacity:0}}
+.sheet h3{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.15;margin:0;overflow-wrap:anywhere;text-wrap:balance}
+.sheet-kicker{margin:0 0 2px;font-size:12px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--amber)}
+.hint{margin:-6px 0 0;color:var(--muted);font-size:14px}
+.field-label,.form label{display:block;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:6px 0 -2px}
+.form{display:flex;flex-direction:column;gap:10px}
+.input,.sheet textarea{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.28);color:var(--ink);font-size:16px;outline:none;transition:border-color .2s}
+.input:focus,.sheet textarea:focus{border-color:var(--amber)}
+.input::placeholder{color:#8C7D72}
+.sheet textarea{resize:vertical;font-size:14px;line-height:1.5}
+.other-row{display:flex;gap:8px}
+.other-row .input{flex:1;min-width:0}
+.pick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (min-width:480px){.pick-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.pick{--c:#999;display:flex;align-items:center;gap:10px;padding:7px 10px 7px 7px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-weight:700;text-align:left;transition:background .15s,border-color .15s,transform .12s}
+.pick:active{transform:scale(.96)}
+.pick span{flex:1;min-width:0;overflow-wrap:anywhere}
+.pick.on{background:color-mix(in srgb,var(--c) 22%,transparent);border-color:var(--c)}
+.pick .chk{width:18px;height:18px;color:var(--c);opacity:0;transform:scale(.4);transition:opacity .15s,transform .25s cubic-bezier(.3,1.6,.5,1)}
+.pick.on .chk{opacity:1;transform:none}
+.cat-chips{display:flex;flex-wrap:wrap;gap:8px}
+.cat{border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:99px;padding:8px 14px;font-weight:700;font-size:14px;color:var(--muted);transition:background .15s,color .15s}
+.cat.on{background:var(--ink);border-color:var(--ink);color:var(--on-bright)}
+.cat.new{border-style:dashed;color:var(--amber)}
+.cat.new.on{background:var(--amber);border-color:var(--amber);color:var(--on-bright)}
+.actions{display:flex;gap:8px;justify-content:flex-end;align-items:center;flex-wrap:wrap;margin-top:6px}
+.actions .spacer{flex:1}
+.confirm-icon{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;background:rgba(255,90,95,.14);color:var(--danger);margin-top:4px;animation:popIn .3s cubic-bezier(.3,1.5,.5,1)}
+.seg.in-sheet{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:99px;padding:4px}
+
+/* ---------- Toasts & activity ---------- */
+.toast{position:fixed;left:50%;bottom:calc(98px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:45;max-width:calc(100% - 32px);display:flex;align-items:center;gap:16px;padding:12px 16px;border-radius:16px;background:var(--ink);color:var(--on-bright);font-size:14px;font-weight:700;box-shadow:0 12px 30px rgba(0,0,0,.45);animation:toastIn .3s cubic-bezier(.2,.9,.25,1)}
+.toast button{border:0;background:none;padding:0;color:#D9480F;font-weight:800}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,14px)}to{opacity:1;transform:translate(-50%,0)}}
+.feed{position:fixed;top:calc(10px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:50;width:min(440px,calc(100% - 24px));display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none}
+.feed-item{display:flex;align-items:center;gap:9px;padding:6px 14px 6px 6px;border-radius:99px;font-size:14px;font-weight:700;background:rgba(36,26,21,.9);border:1px solid var(--line);box-shadow:0 10px 26px rgba(0,0,0,.4);animation:feedIn .4s cubic-bezier(.2,.9,.25,1)}
+.feed-item.out{animation:feedOut .3s ease forwards}
+@keyframes feedIn{from{opacity:0;transform:translateY(-14px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes feedOut{to{opacity:0;transform:translateY(-10px)}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+<canvas id="embers" aria-hidden="true"></canvas>
+<div class="feed" id="feed" aria-live="polite"></div>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="topline">
+      <span class="kicker"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2c1 3.6-1.6 5.1-1.6 7.6 0 1.4 1 2.5 2.3 2.5 1.6 0 2.7-1.4 2.2-3.6C17.3 10.2 19 12.8 19 15.6 19 19.6 15.7 22 12 22s-7-2.4-7-6.4C5 10 10.5 7.6 12 2z"/></svg><span id="kicker">Group checklist</span></span>
+      <span class="live" id="live"><i></i><span id="liveText">Connecting…</span></span>
+    </div>
+    <h1 id="title">BBQ Night</h1>
+    <div class="here" id="here"></div>
+  </header>
+
+  <section class="stats glass" id="stats" aria-label="Progress">
+    <div class="ring-wrap">
+      <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+        <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFC56B"/><stop offset="1" stop-color="#FF5A2B"/></linearGradient></defs>
+        <circle class="ring-track" cx="60" cy="60" r="50"/>
+        <circle class="ring-fill" id="ringFill" cx="60" cy="60" r="50"/>
+      </svg>
+      <div class="ring-num"><span><span id="pct">0</span><small>%</small></span></div>
+    </div>
+    <div class="stat-text">
+      <p class="stat-main"><b id="doneCount">0</b> of <span id="totalCount">0</span> covered</p>
+      <p class="stat-sub" id="statSub">Loading the list…</p>
+      <button type="button" class="you" id="youBtn"><span class="av" id="youAv">?</span><span>You: <b id="youName">pick your name</b></span></button>
+    </div>
+  </section>
+
+  <section aria-label="Who's bringing what">
+    <div class="strip-h"><h2>Who's bringing what</h2><span>Tap a name to filter</span></div>
+    <div class="people" id="people"></div>
+  </section>
+
+  <div class="filterbar glass">
+    <div class="seg" id="filters">
+      <button type="button" data-f="all" class="on">All</button>
+      <button type="button" data-f="open">Needed <span id="nOpen"></span></button>
+      <button type="button" data-f="done">Covered</button>
+    </div>
+    <button type="button" class="pf" id="personFilter" hidden></button>
+  </div>
+
+  <div class="edit-hint" id="editHint" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Edit mode: tap the bin to remove an item. You'll be asked to confirm. Tap an item to rename it.</span>
+  </div>
+  <div class="banner glass" id="banner" role="status" hidden></div>
+  <main id="list"><p class="loading">Loading the list…</p></main>
+</div>
+
+<nav class="dock glass" aria-label="Actions">
+  <button type="button" class="dock-btn" id="addBtn">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>Add
+  </button>
+  <button type="button" class="dock-main" id="shareBtn">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 11.5 21 3l-8.5 18-2.2-7.3L3 11.5zM10.3 13.7 21 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Share on WhatsApp
+  </button>
+  <button type="button" class="dock-btn" id="editBtn" aria-pressed="false">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4zM14 6l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="editLabel">Edit</span>
+  </button>
+</nav>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" hidden></div>
+<div class="toast" id="toast" role="status" hidden></div>
+<noscript><p style="padding:16px">This checklist needs JavaScript turned on.</p></noscript>
+
+<script type="module">
+/* ================= SETTINGS: edit these ================= */
+const EVENT_TITLE = "BBQ Night with Nelson 'n Family";
+const EVENT_WHEN  = "Fri 13 Nov 2026 | Ajman";
+
+// The people who can be picked. Anyone else can still be typed in.
+const PEOPLE = ["Justin", "Sherin", "Dennis", "Merlin", "Pheba", "Mercy", "Philomon", "Seeba", "Sheeba", "Nelson"];
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCXFa0KAdgVTK7ZLB8FyT5AB5c_3fb0Nu8",
+  authDomain: "checklist-trip-124ad.firebaseapp.com",
+  databaseURL: "https://checklist-trip-124ad-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "checklist-trip-124ad",
+  storageBucket: "checklist-trip-124ad.firebasestorage.app",
+  messagingSenderId: "93327589739",
+  appId: "1:93327589739:web:4b4677e4eb4ff7defa4c2e"
+};
+
+// Starting list. Only used the very first time a list is opened; after that, edit in the page.
+const DEFAULT_LIST = [
+  ["BBQ equipment", ["BBQ grill", "Charcoal", "Firelighter cubes", "Lighter / Matches", "BBQ tongs",
+                     "Skewers", "Olive oil", "Grill brush", "Aluminium foil", "Heat-resistant gloves"]],
+  ["Food", ["Meat", "Chips / Snacks", "Ketchup / Mayonnaise / BBQ sauce"]],
+  ["Drinks", ["Drinking water", "Soft drinks"]],
+  ["Plates, cups & cleanup", ["Disposable plates", "Disposable cups", "Disposable spoons", "Tissues",
+                              "Garbage bags", "Paper towels", "Food storage containers"]],
+  ["Seating & setup", ["Picnic mats", "Folding chairs", "Folding table", "Portable lights", "Bluetooth speaker"]],
+  ["Outdoor games", ["Monopoly", "Uno"]]
+];
+/* ======================================================== */
+
+const FIREBASE_SDK = "10.12.2";
+const LIST_ID = (new URLSearchParams(location.search).get("list") || "bbq").replace(/[^a-zA-Z0-9_-]/g, "") || "bbq";
+const CONFIGURED = !!firebaseConfig.databaseURL && !firebaseConfig.databaseURL.includes("PASTE");
+const COLORS = ["#FF8A4C", "#FFD166", "#4CC9F0", "#A78BFA", "#F472B6", "#4ADE80", "#FF6B6B", "#60A5FA", "#C5E063", "#2DD4BF"];
+const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const ICON = {
+  check: '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  plus: '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
+  dots: '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="5" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="19" cy="12" r="2" fill="currentColor"/></svg>',
+  trash: '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  trashBig: '<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  userPlus: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M15 19c0-3-2.7-5-6-5s-6 2-6 5M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM19 8v6M16 11h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+  x: '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>'
+};
+
+/* ---------- Helpers ---------- */
+const $ = s => document.querySelector(s);
+const norm = s => String(s || "").trim().toLowerCase();
+const canon = n => PEOPLE.find(p => norm(p) === norm(n)) || String(n || "").trim();
+const splitNames = s => String(s || "").split(",").map(x => x.trim()).filter(Boolean);
+const hasName = (s, n) => !!n && splitNames(s).some(x => norm(x) === norm(n));
+function joinNames(arr) {
+  const out = [];
+  arr.forEach(n => { n = canon(n); if (n && !out.some(o => norm(o) === norm(n))) out.push(n); });
+  return out.join(", ");
+}
+function colorFor(name) {
+  const i = PEOPLE.findIndex(p => norm(p) === norm(name));
+  if (i >= 0) return COLORS[i % COLORS.length];
+  let h = 0;
+  for (const ch of norm(name)) h = (h * 31 + ch.charCodeAt(0)) % 360;
+  return "hsl(" + h + " 85% 70%)";
+}
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+function svgEl(html) { const s = document.createElement("span"); s.innerHTML = html; return s.firstChild; }
+function avatar(name, size) {
+  const a = el("span", "av" + (size ? " " + size : ""), (canon(name)[0] || "?").toUpperCase());
+  a.style.setProperty("--c", colorFor(name));
+  a.setAttribute("aria-hidden", "true");
+  return a;
+}
+function button(text, cls, type) { const b = el("button", "btn " + cls, text); b.type = type || "button"; return b; }
+function seedItems() {
+  const out = [];
+  DEFAULT_LIST.forEach(([cat, labels]) => labels.forEach((label, i) =>
+    out.push({ cat, label, order: i, name: "", note: "", ts: Date.now() })));
+  return out;
+}
+
+/* ---------- Storage: demo (this device only) ---------- */
+function localStore() {
+  const KEY = "checklist:" + LIST_ID;
+  let items = {}, cb = () => {};
+  const read = () => { try { return JSON.parse(localStorage.getItem(KEY) || "null"); } catch { return null; } };
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(items)); } catch {} };
+  const emit = () => cb(Object.entries(items).map(([id, d]) => ({ id, ...d })));
+  const uid = () => "x" + Math.random().toString(36).slice(2, 9) + Date.now().toString(36);
+  return {
+    mode: "demo",
+    newId: uid,
+    subscribe(onItems, onStatus) {
+      cb = onItems; items = read() || {}; onStatus("demo");
+      addEventListener("storage", e => { if (e.key === KEY) { items = read() || {}; emit(); } });
+      emit();
+    },
+    presence() {},
+    setPresenceName() {},
+    async seedIfEmpty(defs) {
+      let seeded = false;
+      try { seeded = localStorage.getItem(KEY + ":seeded") === "1"; } catch {}
+      if (seeded || Object.keys(items).length) return;
+      defs.forEach(d => { items[uid()] = d; });
+      try { localStorage.setItem(KEY + ":seeded", "1"); } catch {}
+      save(); emit();
+    },
+    async mutate(id, fn) {
+      const cur = items[id];
+      if (!cur) return { ok: false };
+      const next = fn({ ...cur });
+      if (!next) return { ok: false };
+      items[id] = { ...next, ts: Date.now() }; save(); emit();
+      return { ok: true };
+    },
+    async put(id, d) { items[id] = d; save(); emit(); },
+    async remove(id) { delete items[id]; save(); emit(); }
+  };
+}
+
+/* ---------- Storage: Firebase Realtime Database (shared, live) ---------- */
+async function firebaseStore(cfg) {
+  const base = "https://www.gstatic.com/firebasejs/" + FIREBASE_SDK;
+  const { initializeApp } = await import(base + "/firebase-app.js");
+  const F = await import(base + "/firebase-database.js");
+  const db = F.getDatabase(initializeApp(cfg));
+  const root = "lists/" + LIST_ID;
+  const itemsRef = F.ref(db, root + "/items");
+  const itemRef = id => F.ref(db, root + "/items/" + id);
+  const presRef = F.ref(db, root + "/presence");
+  const myPresence = F.push(presRef);
+  return {
+    mode: "live",
+    newId: () => F.push(itemsRef).key,
+    subscribe(onItems, onStatus, onError) {
+      F.onValue(F.ref(db, ".info/connected"), s => onStatus(s.val() ? "live" : "offline"));
+      F.onValue(itemsRef, snap => {
+        const v = snap.val() || {};
+        onItems(Object.entries(v).map(([id, d]) => ({ id, ...d })));
+      }, onError);
+    },
+    presence(getName, onPeople) {
+      F.onValue(F.ref(db, ".info/connected"), s => {
+        if (!s.val()) return;
+        F.onDisconnect(myPresence).remove()
+          .then(() => F.set(myPresence, { name: getName() || "", at: F.serverTimestamp() }))
+          .catch(() => {});
+      });
+      F.onValue(presRef, snap => onPeople(Object.values(snap.val() || {})), () => {});
+    },
+    setPresenceName(n) { F.update(myPresence, { name: n }).catch(() => {}); },
+    async seedIfEmpty(defs) {
+      const res = await F.runTransaction(F.ref(db, root + "/seeded"), cur => (cur ? undefined : Date.now()));
+      if (!res.committed) return;
+      const batch = {};
+      defs.forEach(d => { batch[F.push(itemsRef).key] = d; });
+      await F.update(itemsRef, batch);
+    },
+    async mutate(id, fn) {
+      const res = await F.runTransaction(itemRef(id), cur => {
+        if (!cur) return;                       // item no longer exists
+        const next = fn({ ...cur });
+        if (!next) return;                      // abort
+        return { ...next, ts: Date.now() };
+      });
+      return { ok: res.committed };
+    },
+    put: (id, d) => F.set(itemRef(id), d),
+    remove: id => F.remove(itemRef(id))
+  };
+}
+
+/* ---------- Background embers ---------- */
+const Embers = (() => {
+  const cv = $("#embers"), ctx = cv.getContext("2d");
+  let W = 0, H = 0, parts = [], raf = 0, running = false;
+  function size() {
+    const d = Math.min(window.devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    cv.width = W * d; cv.height = H * d;
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+  }
+  function ambient() {
+    parts.push({ x: Math.random() * W, y: H + 10, vx: (Math.random() - .5) * .3, vy: -(.35 + Math.random() * .9),
+      r: .7 + Math.random() * 1.7, life: 0, max: 280 + Math.random() * 300, hue: 16 + Math.random() * 30,
+      sway: Math.random() * 6.28, amb: true });
+  }
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    const target = W < 520 ? 26 : 42;
+    if (parts.filter(p => p.amb).length < target && Math.random() < .3) ambient();
+    ctx.globalCompositeOperation = "lighter";
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const p = parts[i];
+      p.life++;
+      if (p.amb) { p.sway += .03; p.x += p.vx + Math.sin(p.sway) * .25; p.y += p.vy; }
+      else { p.vx *= .95; p.vy = p.vy * .95 - .035; p.x += p.vx; p.y += p.vy; }
+      const t = p.life / p.max;
+      if (t >= 1 || p.y < -20) { parts.splice(i, 1); continue; }
+      const a = p.amb ? Math.sin(Math.PI * t) * .8 : 1 - t;
+      ctx.fillStyle = "hsla(" + p.hue + ",100%,60%," + (a * .16) + ")";
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 4.5, 0, 6.283); ctx.fill();
+      ctx.fillStyle = "hsla(" + (p.hue + 12) + ",100%,74%," + a + ")";
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill();
+    }
+    ctx.globalCompositeOperation = "source-over";
+    raf = requestAnimationFrame(frame);
+  }
+  function start() { if (!running && !REDUCED && !document.hidden) { running = true; raf = requestAnimationFrame(frame); } }
+  function stop() { cancelAnimationFrame(raf); running = false; }
+  size();
+  addEventListener("resize", size);
+  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+  start();
+  return {
+    burst(x, y, n = 26, power = 3.2) {
+      if (REDUCED) return;
+      for (let i = 0; i < n; i++) {
+        const a = Math.random() * 6.283, s = (.35 + Math.random()) * power;
+        parts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 1, r: .9 + Math.random() * 2,
+          life: 0, max: 36 + Math.random() * 40, hue: 14 + Math.random() * 36, amb: false });
+      }
+    }
+  };
+})();
+
+/* ---------- App state ---------- */
+const state = { items: [], byId: new Map(), loaded: false, filter: "all", person: null, editing: false,
+                me: "", here: [], first: true, allDone: null };
+try { state.me = canon(localStorage.getItem("checklist:name") || ""); } catch {}
+const touched = new Map();
+const touch = id => touched.set(id, Date.now());
+const recentlyTouched = id => Date.now() - (touched.get(id) || 0) < 6000;
+const busy = new Set();
+
+function setMe(n) {
+  state.me = canon(n);
+  try { localStorage.setItem("checklist:name", state.me); } catch {}
+  if (store) store.setPresenceName(state.me);
+  render();
+}
+function setLive(s) {
+  $("#live").dataset.s = s;
+  $("#liveText").textContent = { live: "Live", offline: "Offline · will sync", demo: "Demo mode" }[s] || "Connecting…";
+}
+function banner(html) {
+  const b = $("#banner");
+  if (!html) { b.hidden = true; return; }
+  b.innerHTML = html; b.hidden = false;
+}
+
+let toastTimer;
+function toast(msg, actionLabel, action) {
+  const t = $("#toast");
+  t.replaceChildren(el("span", null, msg));
+  if (actionLabel) {
+    const b = el("button", null, actionLabel); b.type = "button";
+    b.onclick = () => { t.hidden = true; run(action()); };
+    t.append(b);
+  }
+  t.hidden = true; void t.offsetWidth; t.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.hidden = true; }, actionLabel ? 5500 : 2800);
+}
+function activity(text, name) {
+  const feed = $("#feed");
+  const item = el("div", "feed-item");
+  if (name) item.append(avatar(name)); else item.append(svgEl(ICON.plus));
+  item.append(el("span", null, text));
+  feed.prepend(item);
+  while (feed.children.length > 3) feed.lastChild.remove();
+  setTimeout(() => { item.classList.add("out"); setTimeout(() => item.remove(), 320); }, 3800);
+}
+function run(p) {
+  Promise.resolve(p).catch(err => {
+    console.error(err);
+    toast(String(err && err.message || "").toLowerCase().includes("permission")
+      ? "The database refused the change. Check its rules."
+      : "Couldn't save that. Check your connection and try again.");
+  });
+}
+function tween(node, to) {
+  const from = Number(node.dataset.v || 0);
+  node.dataset.v = to;
+  if (from === to || REDUCED) { node.textContent = to; return; }
+  const t0 = performance.now(), dur = 650;
+  const step = now => {
+    const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+    node.textContent = Math.round(from + (to - from) * e);
+    if (k < 1 && node.dataset.v == to) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+/* ---------- Data views ---------- */
+function sections() {
+  const map = new Map(DEFAULT_LIST.map(([c]) => [c, []]));
+  const firstSeen = new Map();
+  for (const it of state.items) {
+    if (!map.has(it.cat)) map.set(it.cat, []);
+    map.get(it.cat).push(it);
+    firstSeen.set(it.cat, Math.min(firstSeen.get(it.cat) ?? Infinity, it.ts || 0));
+  }
+  for (const arr of map.values()) arr.sort((a, b) => (a.order || 0) - (b.order || 0) || a.label.localeCompare(b.label));
+  const defaults = DEFAULT_LIST.map(([c]) => c);
+  const extra = [...map.keys()].filter(c => !defaults.includes(c)).sort((a, b) => firstSeen.get(a) - firstSeen.get(b));
+  return [...defaults, ...extra].map(c => [c, map.get(c)]);
+}
+function allNames() {
+  const names = [...PEOPLE];
+  state.items.forEach(it => splitNames(it.name).forEach(n => { if (!names.some(x => norm(x) === norm(n))) names.push(canon(n)); }));
+  if (state.me && !names.some(x => norm(x) === norm(state.me))) names.push(state.me);
+  return names;
+}
+const passes = it =>
+  (state.filter === "all" || (state.filter === "open" ? !it.name : !!it.name)) &&
+  (!state.person || hasName(it.name, state.person));
+
+/* ---------- Rendering ---------- */
+function render() {
+  const editBtn = $("#editBtn");
+  editBtn.classList.toggle("on", state.editing);
+  editBtn.setAttribute("aria-pressed", String(state.editing));
+  $("#editLabel").textContent = state.editing ? "Done" : "Edit";
+  document.body.classList.toggle("editing", state.editing);
+  $("#editHint").hidden = !state.editing;
+  document.querySelectorAll("#filters button").forEach(b => b.classList.toggle("on", b.dataset.f === state.filter));
+  renderYou();
+  const pf = $("#personFilter");
+  if (state.person) {
+    pf.replaceChildren(avatar(state.person), el("span", null, state.person), svgEl(ICON.x));
+    pf.style.setProperty("--c", colorFor(state.person));
+    pf.setAttribute("aria-label", "Stop filtering by " + state.person);
+    pf.hidden = false;
+  } else pf.hidden = true;
+  if (!state.loaded) return;
+  renderStats();
+  renderPeople();
+  renderList();
+  renderHere();
+}
+
+function renderYou() {
+  const av = $("#youAv");
+  av.textContent = state.me ? state.me[0].toUpperCase() : "?";
+  av.style.setProperty("--c", state.me ? colorFor(state.me) : "#6E6258");
+  $("#youName").textContent = state.me || "pick your name";
+}
+
+function renderStats() {
+  const total = state.items.length;
+  const done = state.items.filter(i => i.name).length;
+  const pct = total ? Math.round(done / total * 100) : 0;
+  tween($("#doneCount"), done);
+  tween($("#pct"), pct);
+  $("#totalCount").textContent = total;
+  $("#nOpen").textContent = total - done ? String(total - done) : "";
+  $("#ringFill").style.strokeDashoffset = String(314.16 * (1 - (total ? done / total : 0)));
+  const bringers = allNames().filter(n => state.items.some(it => hasName(it.name, n))).length;
+  $("#statSub").textContent = !total ? "The list is empty. Tap Add to start."
+    : done === total ? "Everything is covered. See you there!"
+    : (total - done) + " still needed · " + bringers + (bringers === 1 ? " person" : " people") + " bringing";
+  const complete = total > 0 && done === total;
+  $("#stats").classList.toggle("complete", complete);
+  if (complete && state.allDone === false) {
+    const r = $(".ring-wrap").getBoundingClientRect();
+    Embers.burst(r.left + r.width / 2, r.top + r.height / 2, 90, 6);
+    toast("Everything is covered!");
+  }
+  state.allDone = complete;
+}
+
+function renderPeople() {
+  const wrap = $("#people");
+  const chips = allNames().map(n => {
+    const count = state.items.filter(it => hasName(it.name, n)).length;
+    const b = el("button", "person" + (count ? "" : " zero") + (norm(state.person) === norm(n) ? " on" : "") + (norm(state.me) === norm(n) ? " me" : ""));
+    b.type = "button";
+    b.style.setProperty("--c", colorFor(n));
+    b.setAttribute("aria-pressed", String(norm(state.person) === norm(n)));
+    b.setAttribute("aria-label", n + (norm(state.me) === norm(n) ? " (you)" : "") + ", bringing " + count);
+    b.append(avatar(n), el("span", null, n), el("span", "n", String(count)));
+    b.onclick = () => { state.person = norm(state.person) === norm(n) ? null : n; render(); };
+    return b;
+  });
+  wrap.replaceChildren(...chips);
+}
+
+function renderHere() {
+  const box = $("#here");
+  if (!store || store.mode !== "live" || !state.here.length) { box.replaceChildren(); return; }
+  const named = [];
+  state.here.forEach(p => { const n = canon(p.name || ""); if (n && !named.some(x => norm(x) === norm(n))) named.push(n); });
+  const stack = el("span", "stack");
+  named.slice(0, 6).forEach(n => stack.append(avatar(n)));
+  const count = state.here.length;
+  box.replaceChildren(stack, el("span", null, count === 1 ? "Just you here right now" : count + " people here right now"));
+}
+
+/* Keyed rendering: rows and sections are reused so animations stay smooth */
+const secCache = new Map();
+const rowCache = new Map();
+let emptyEl = null;
+
+function nextLive(node) {
+  let n = node.nextElementSibling;
+  while (n && n.classList.contains("leave")) n = n.nextElementSibling;
+  return n;
+}
+function reconcile(parent, desired) {
+  const want = new Set(desired);
+  for (const c of [...parent.children]) if (!want.has(c) && !c.classList.contains("leave")) c.remove();
+  for (let i = desired.length - 1; i >= 0; i--) {
+    const node = desired[i], next = desired[i + 1] || null;
+    if (node.parentNode !== parent || nextLive(node) !== next) parent.insertBefore(node, next);
+  }
+}
+function leave(li) {
+  if (!li.isConnected) return;
+  li.style.height = li.offsetHeight + "px";
+  li.classList.remove("enter", "pop");
+  li.classList.add("leave");
+  setTimeout(() => li.remove(), 340);
+}
+
+function getSection(cat) {
+  let s = secCache.get(cat);
+  if (s) return s;
+  const sec = el("section", "sec glass");
+  const h = el("div", "sec-h");
+  const title = el("h2");
+  const count = el("span", "sec-count");
+  const add = el("button", "sec-add"); add.type = "button";
+  add.innerHTML = ICON.plus;
+  add.setAttribute("aria-label", "Add item to " + cat);
+  add.onclick = () => openAddSheet(cat);
+  h.append(title, count, add);
+  const bar = el("div", "sec-bar"); const fill = el("i"); bar.append(fill);
+  const ul = el("ul");
+  const empty = el("p", "sec-empty", "Nothing here yet. Tap + to add something.");
+  sec.append(h, bar, ul, empty);
+  s = { el: sec, title, count, fill, ul, empty };
+  secCache.set(cat, s);
+  return s;
+}
+
+function buildRow(id) {
+  const li = el("li", "row");
+  const tick = el("button", "tick"); tick.type = "button"; tick.innerHTML = ICON.check;
+  tick.onclick = () => onTick(id);
+  const txt = el("div", "txt");
+  const label = el("span", "label");
+  const meta = el("div", "meta");
+  txt.append(label, meta);
+  txt.onclick = () => onTick(id);
+  const side = el("div");
+  side.style.display = "contents";
+  li.append(tick, txt, side);
+  li.addEventListener("animationend", e => {
+    if (e.animationName === "rowIn") li.classList.remove("enter");
+    if (e.animationName === "tickPop") li.classList.remove("pop");
+  });
+  return { id, li, tick, label, meta, side, sig: null, sideMode: null, labelText: null, seen: false };
+}
+
+function updateRow(r, it) {
+  const done = !!it.name;
+  const wasDone = r.li.classList.contains("done");
+  r.li.classList.toggle("done", done);
+  r.li.classList.toggle("mine", hasName(it.name, state.me));
+  if (done && !wasDone && r.seen && !state.first) {
+    r.li.classList.remove("pop"); void r.li.offsetWidth; r.li.classList.add("pop");
+    const b = r.tick.getBoundingClientRect();
+    if (b.bottom > 0 && b.top < innerHeight) Embers.burst(b.left + b.width / 2, b.top + b.height / 2);
+  }
+  r.seen = true;
+  if (r.labelText !== it.label) { r.label.textContent = it.label; r.labelText = it.label; }
+  const sig = it.name + "|" + it.note;
+  if (r.sig !== sig) {
+    r.sig = sig;
+    const parts = [];
+    splitNames(it.name).forEach(n => {
+      const c = el("span", "who");
+      c.style.setProperty("--c", colorFor(n));
+      c.append(avatar(n), el("span", null, canon(n)));
+      parts.push(c);
+    });
+    if (it.note) parts.push(el("span", "note", it.note));
+    if (!parts.length) parts.push(el("span", "hintline", "Tap to bring it"));
+    r.meta.replaceChildren(...parts);
+  }
+  const mode = state.editing ? "trash" : done ? "more" : "assign";
+  if (r.sideMode !== mode) {
+    r.sideMode = mode;
+    let b;
+    if (mode === "trash") {
+      b = el("button", "trash"); b.innerHTML = ICON.trash;
+      b.onclick = () => confirmRemove(r.id);
+    } else if (mode === "more") {
+      b = el("button", "more"); b.innerHTML = ICON.dots;
+      b.onclick = () => openItemSheet(r.id);
+    } else {
+      b = el("button", "assign"); b.append(svgEl(ICON.userPlus), el("span", null, "Assign"));
+      b.onclick = () => openItemSheet(r.id);
+    }
+    b.type = "button";
+    r.side.replaceChildren(b);
+  }
+  const btn = r.side.firstChild;
+  if (btn) btn.setAttribute("aria-label", (mode === "trash" ? "Remove " : "Details for ") + it.label);
+  r.tick.setAttribute("aria-pressed", String(done));
+  r.tick.setAttribute("aria-label", done ? it.label + ": " + it.name + " bringing it" : it.label + ": tap to bring it");
+}
+
+function renderList() {
+  const list = $("#list");
+  for (const [id, r] of rowCache) if (!state.byId.has(id)) { leave(r.li); rowCache.delete(id); }
+  const filtering = state.filter !== "all" || !!state.person;
+  const desiredSecs = [];
+  let shown = 0, idx = 0;
+  const defaults = DEFAULT_LIST.map(([c]) => c);
+  for (const [cat, arr] of sections()) {
+    const vis = arr.filter(passes);
+    if (filtering && !vis.length) continue;
+    if (!arr.length && !defaults.includes(cat)) continue;
+    const s = getSection(cat);
+    const done = arr.filter(i => i.name).length;
+    s.title.textContent = cat;
+    s.count.textContent = done + "/" + arr.length;
+    s.fill.style.width = arr.length ? (done / arr.length * 100) + "%" : "0";
+    s.el.classList.toggle("complete", arr.length > 0 && done === arr.length);
+    s.empty.hidden = vis.length > 0;
+    const rows = vis.map(it => {
+      let r = rowCache.get(it.id);
+      if (!r) {
+        r = buildRow(it.id);
+        rowCache.set(it.id, r);
+        r.li.classList.add("enter");
+        r.li.style.animationDelay = state.first ? Math.min(idx * 22, 700) + "ms" : "0ms";
+      }
+      idx++;
+      updateRow(r, it);
+      return r.li;
+    });
+    reconcile(s.ul, rows);
+    desiredSecs.push(s.el);
+    shown += vis.length;
+  }
+  if (filtering && !shown) {
+    emptyEl = emptyEl || el("p", "empty");
+    emptyEl.textContent = state.person
+      ? (state.filter === "open" ? "Nothing left for " + state.person + "." : state.person + " hasn't picked anything yet.")
+      : state.filter === "open" ? "Everything is covered!" : "Nothing is covered yet.";
+    desiredSecs.push(emptyEl);
+  }
+  reconcile(list, desiredSecs);
+  if (state.items.length) state.first = false;
+}
+
+/* Announce what other people changed */
+function announce(prev, next) {
+  if (!prev || !prev.size) return;
+  const msgs = [];
+  for (const [id, it] of next) {
+    if (recentlyTouched(id)) continue;
+    const p = prev.get(id);
+    if (!p) { msgs.push([it.label + " was added", null]); continue; }
+    if (p.name !== it.name) {
+      const added = splitNames(it.name).filter(n => !hasName(p.name, n));
+      if (added.length) msgs.push([added.map(canon).join(" & ") + (added.length > 1 ? " are" : " is") + " bringing " + it.label, added[0]]);
+      else if (!it.name) msgs.push([it.label + " is free again", null]);
+    } else if (p.label !== it.label) msgs.push([p.label + " was renamed to " + it.label, null]);
+  }
+  for (const [id, p] of prev) if (!next.has(id) && !recentlyTouched(id)) msgs.push([p.label + " was removed", null]);
+  msgs.slice(0, 3).forEach(([t, n]) => activity(t, n));
+}
+
+/* ---------- Actions ---------- */
+async function onTick(id) {
+  if (state.editing) { openItemSheet(id); return; }
+  if (busy.has(id) || !state.byId.has(id)) return;
+  const me = state.me || await pickMe();
+  if (!me) return;
+  const cur = state.byId.get(id);
+  if (!cur) return;
+  if (hasName(cur.name, me)) {
+    touch(id);
+    run(store.mutate(id, c => ({ ...c, name: joinNames(splitNames(c.name).filter(n => norm(n) !== norm(me))) })));
+    toast("Took you off " + cur.label, "Undo", () => { touch(id); return store.mutate(id, c => ({ ...c, name: joinNames([...splitNames(c.name), me]) })); });
+    return;
+  }
+  if (cur.name) { openItemSheet(id); return; }
+  busy.add(id); touch(id);
+  try {
+    const r = await store.mutate(id, c => (c.name && !hasName(c.name, me)) ? undefined : { ...c, name: joinNames([...splitNames(c.name), me]) });
+    if (!r.ok) {
+      const now = state.byId.get(id);
+      toast(now && now.name ? now.name + " just took " + now.label : "That item was removed.");
+    }
+  } catch (err) { run(Promise.reject(err)); }
+  finally { busy.delete(id); }
+}
+
+function confirmRemove(id) {
+  const it = state.byId.get(id);
+  if (!it) return;
+  openSheet(s => {
+    const icon = el("div", "confirm-icon"); icon.innerHTML = ICON.trashBig;
+    const who = splitNames(it.name).map(canon);
+    s.append(icon, el("h3", null, "Remove “" + it.label + "”?"),
+      el("p", "hint", (who.length ? who.join(" & ") + (who.length > 1 ? " are" : " is") + " bringing it. " : "") +
+        "It will disappear from everyone's list."));
+    const actions = el("div", "actions");
+    const keep = button("Keep it", "ghost"); keep.id = "keepBtn"; keep.onclick = closeSheet;
+    const del = button("Remove", "danger-solid");
+    del.onclick = () => {
+      const { id: _drop, ...data } = it;
+      touch(id);
+      run(store.remove(id));
+      closeSheet();
+      toast("Removed " + it.label, "Undo", () => { touch(id); return store.put(id, data); });
+    };
+    actions.append(keep, del);
+    s.append(actions);
+  }, "#keepBtn");
+}
+
+/* ---------- Sheets ---------- */
+const sheet = $("#sheet"), scrim = $("#scrim");
+let onSheetClose = null, closeTimer = null;
+function openSheet(build, focusSel) {
+  clearTimeout(closeTimer);
+  sheet.classList.remove("closing"); scrim.classList.remove("closing");
+  const cb = onSheetClose; onSheetClose = null; if (cb) cb();
+  sheet.replaceChildren();
+  build(sheet);
+  if (sheet.hidden) { sheet.hidden = false; scrim.hidden = false; }
+  else { sheet.style.animation = "none"; void sheet.offsetWidth; sheet.style.animation = ""; }
+  sheet.scrollTop = 0;
+  document.body.classList.add("locked");
+  const f = focusSel && sheet.querySelector(focusSel);
+  if (f) f.focus();
+}
+function closeSheet() {
+  if (sheet.hidden) return;
+  const cb = onSheetClose; onSheetClose = null;
+  sheet.classList.add("closing"); scrim.classList.add("closing");
+  document.body.classList.remove("locked");
+  closeTimer = setTimeout(() => {
+    sheet.hidden = true; scrim.hidden = true;
+    sheet.classList.remove("closing"); scrim.classList.remove("closing");
+  }, 190);
+  if (cb) cb();
+}
+scrim.onclick = closeSheet;
+addEventListener("keydown", e => { if (e.key === "Escape" && !sheet.hidden) closeSheet(); });
+
+function textField(parent, id, labelText, value, placeholder, max) {
+  const lab = el("label", null, labelText); lab.htmlFor = id;
+  const inp = el("input", "input"); inp.id = id; inp.value = value || ""; inp.placeholder = placeholder || ""; inp.maxLength = max;
+  parent.append(lab, inp);
+  return inp;
+}
+
+/* People picker used in several sheets; sel is an array of names it edits */
+function peoplePicker(sel, labelText) {
+  const box = el("div");
+  const grid = el("div", "pick-grid");
+  grid.setAttribute("role", "group");
+  grid.setAttribute("aria-label", labelText);
+  const draw = () => {
+    const names = [...PEOPLE];
+    sel.forEach(n => { if (!names.some(x => norm(x) === norm(n))) names.push(n); });
+    grid.replaceChildren(...names.map(n => {
+      const on = sel.some(x => norm(x) === norm(n));
+      const b = el("button", "pick" + (on ? " on" : "")); b.type = "button";
+      b.style.setProperty("--c", colorFor(n));
+      b.setAttribute("aria-pressed", String(on));
+      const chk = svgEl(ICON.check); chk.classList.add("chk");
+      b.append(avatar(n, "lg"), el("span", null, n + (norm(n) === norm(state.me) ? " (you)" : "")), chk);
+      b.onclick = () => {
+        const i = sel.findIndex(x => norm(x) === norm(n));
+        if (i >= 0) sel.splice(i, 1); else sel.push(n);
+        draw();
+      };
+      return b;
+    }));
+  };
+  draw();
+  const other = el("div", "other-row");
+  const oi = el("input", "input"); oi.placeholder = "Someone else? Type a name"; oi.maxLength = 24;
+  oi.setAttribute("aria-label", "Add someone not in the list");
+  const ob = button("Add", "ghost small");
+  const addOther = () => {
+    const v = oi.value.trim();
+    if (!v) return;
+    if (!sel.some(x => norm(x) === norm(v))) sel.push(canon(v));
+    oi.value = ""; draw();
+  };
+  ob.onclick = addOther;
+  oi.onkeydown = e => { if (e.key === "Enter") { e.preventDefault(); addOther(); } };
+  other.append(oi, ob);
+  box.append(grid);
+  box.style.display = "contents";
+  return { nodes: [grid, other], flush: addOther };
+}
+
+function pickMe() {
+  return new Promise(resolve => {
+    let result = "";
+    openSheet(s => {
+      s.append(el("h3", null, "Who are you?"),
+               el("p", "hint", "Pick your name once. It shows next to everything you tick, on everyone's phone."));
+      const grid = el("div", "pick-grid");
+      PEOPLE.forEach(n => {
+        const on = norm(n) === norm(state.me);
+        const b = el("button", "pick" + (on ? " on" : "")); b.type = "button";
+        b.style.setProperty("--c", colorFor(n));
+        const chk = svgEl(ICON.check); chk.classList.add("chk");
+        b.append(avatar(n, "lg"), el("span", null, n), chk);
+        b.onclick = () => { result = n; setMe(n); closeSheet(); };
+        grid.append(b);
+      });
+      const other = el("form", "other-row");
+      const oi = el("input", "input"); oi.placeholder = "Not listed? Type your name"; oi.maxLength = 24;
+      oi.setAttribute("aria-label", "Your name");
+      other.append(oi, button("Use", "ghost small", "submit"));
+      other.onsubmit = e => {
+        e.preventDefault();
+        const v = oi.value.trim();
+        if (!v) { oi.focus(); return; }
+        result = canon(v); setMe(result); closeSheet();
+      };
+      s.append(grid, other);
+      onSheetClose = () => resolve(result);
+    });
+  });
+}
+
+function openItemSheet(id) {
+  const it = state.byId.get(id);
+  if (!it) return;
+  const sel = splitNames(it.name).map(canon);
+  openSheet(s => {
+    const head = el("div");
+    head.append(el("p", "sheet-kicker", it.cat), el("h3", null, it.label));
+    s.append(head, el("p", "field-label", "Who's bringing it?"));
+    const picker = peoplePicker(sel, "Who's bringing " + it.label);
+    s.append(...picker.nodes);
+    const f = el("form", "form");
+    const note = textField(f, "itemNote", "Note (optional)", it.note, "e.g. 2 bags, 1 kg, 24 bottles", 60);
+    const label = textField(f, "itemLabel", "Item name", it.label, "", 60);
+    const actions = el("div", "actions");
+    const rm = button("Remove item", "danger small");
+    rm.prepend(svgEl(ICON.trash));
+    rm.onclick = () => confirmRemove(id);
+    const cancel = button("Cancel", "ghost small"); cancel.onclick = closeSheet;
+    actions.append(rm, el("span", "spacer"), cancel, button("Save", "primary small", "submit"));
+    f.append(actions);
+    f.onsubmit = e => {
+      e.preventDefault();
+      picker.flush();
+      const patch = { name: joinNames(sel), note: note.value.trim(), label: label.value.trim() || it.label };
+      touch(id);
+      run(store.mutate(id, c => ({ ...c, ...patch })).then(r => { if (!r.ok) toast("That item was removed."); }));
+      closeSheet();
+    };
+    s.append(f);
+  });
+}
+
+function openAddSheet(presetCat) {
+  const cats = sections().map(([c]) => c);
+  let cat = presetCat && cats.includes(presetCat) ? presetCat : cats[0];
+  let newCat = false;
+  const sel = [];
+  openSheet(s => {
+    s.append(el("h3", null, "Add items"),
+             el("p", "hint", "Add several at once by separating them with commas."));
+    const f = el("form", "form");
+    const name = textField(f, "newItem", "Item", "", "e.g. Chicken wings, Lamb chops, Ice", 160);
+    f.append(el("p", "field-label", "Section"));
+    const chips = el("div", "cat-chips");
+    const newCatInp = el("input", "input"); newCatInp.placeholder = "New section name"; newCatInp.maxLength = 30;
+    newCatInp.setAttribute("aria-label", "New section name");
+    const drawCats = () => {
+      chips.replaceChildren(...cats.map(c => {
+        const b = el("button", "cat" + (!newCat && c === cat ? " on" : ""), c); b.type = "button";
+        b.onclick = () => { cat = c; newCat = false; drawCats(); };
+        return b;
+      }));
+      const nb = el("button", "cat new" + (newCat ? " on" : ""), "+ New section"); nb.type = "button";
+      nb.onclick = () => { newCat = true; drawCats(); newCatInp.focus(); };
+      chips.append(nb);
+      newCatInp.hidden = !newCat;
+    };
+    drawCats();
+    f.append(chips, newCatInp, el("p", "field-label", "Who's bringing it? (optional)"));
+    const picker = peoplePicker(sel, "Who's bringing the new items");
+    f.append(...picker.nodes);
+    const actions = el("div", "actions");
+    const cancel = button("Cancel", "ghost small"); cancel.onclick = closeSheet;
+    const add = button("Add", "primary small", "submit"); add.prepend(svgEl(ICON.plus));
+    actions.append(cancel, add);
+    f.append(actions);
+    f.onsubmit = e => {
+      e.preventDefault();
+      picker.flush();
+      const labels = name.value.split(",").map(x => x.trim()).filter(Boolean).map(x => x.slice(0, 60));
+      if (!labels.length) { name.focus(); return; }
+      const c = newCat ? newCatInp.value.trim() : cat;
+      if (!c) { newCatInp.focus(); return; }
+      let order = state.items.filter(i => i.cat === c).reduce((m, i) => Math.max(m, i.order || 0), -1) + 1;
+      const who = joinNames(sel);
+      labels.forEach(label => {
+        const id = store.newId();
+        touch(id);
+        run(store.put(id, { cat: c, label, order: order++, name: who, note: "", ts: Date.now() }));
+      });
+      if (state.person || state.filter !== "all") { state.person = null; state.filter = "all"; render(); }
+      closeSheet();
+      toast(labels.length > 1 ? "Added " + labels.length + " items to " + c : "Added " + labels[0]);
+    };
+    s.append(f);
+  }, "#newItem");
+}
+
+/* ---------- WhatsApp share ---------- */
+function pageLink() {
+  return location.origin + location.pathname + (LIST_ID !== "bbq" ? "?list=" + LIST_ID : "");
+}
+function summary(mode) {
+  const groups = sections().filter(([, arr]) => arr.length);
+  const flat = groups.flatMap(([, arr]) => arr);
+  const total = flat.length, done = flat.filter(i => i.name).length;
+  const lines = [];
+  if (mode === "open") {
+    lines.push("*" + EVENT_TITLE + ": still needed (" + (total - done) + ")*");
+    groups.forEach(([cat, arr]) => {
+      const open = arr.filter(i => !i.name);
+      if (!open.length) return;
+      lines.push("", "_" + cat + "_");
+      open.forEach(i => lines.push("• " + i.label));
+    });
+    if (total && done === total) lines.push("", "Everything is covered 🎉");
+  } else if (mode === "people") {
+    lines.push("*" + EVENT_TITLE + ": who's bringing what*");
+    allNames().forEach(n => {
+      const theirs = flat.filter(i => hasName(i.name, n));
+      if (!theirs.length) return;
+      lines.push("", "*" + n + "* (" + theirs.length + ")");
+      theirs.forEach(i => lines.push("• " + i.label + (i.note ? " (" + i.note + ")" : "")));
+    });
+    const open = flat.filter(i => !i.name);
+    if (open.length) { lines.push("", "_Not taken yet (" + open.length + ")_"); open.forEach(i => lines.push("• " + i.label)); }
+  } else {
+    lines.push("*" + EVENT_TITLE + ": " + done + "/" + total + " covered*");
+    groups.forEach(([cat, arr]) => {
+      lines.push("", "_" + cat + "_");
+      arr.forEach(i => lines.push(i.name
+        ? "✅ " + i.label + " – " + splitNames(i.name).map(canon).join(", ") + (i.note ? " (" + i.note + ")" : "")
+        : "⬜ " + i.label));
+    });
+  }
+  lines.push("", "Tick what you'll bring here:", pageLink());
+  return lines.join("\n");
+}
+function openShare() {
+  openSheet(s => {
+    s.append(el("h3", null, "Share on WhatsApp"),
+             el("p", "hint", "Sends the list with the link, so people can tick from there."));
+    const seg = el("div", "seg in-sheet");
+    const modes = [["all", "Full list"], ["open", "Still needed"], ["people", "By person"]];
+    const btns = modes.map(([m, t]) => { const b = el("button", null, t); b.type = "button"; b.onclick = () => fill(m); return b; });
+    seg.append(...btns);
+    const ta = el("textarea"); ta.readOnly = true; ta.rows = 10; ta.setAttribute("aria-label", "Message text");
+    const wa = el("a", "btn primary small", "Open WhatsApp"); wa.id = "shareWa"; wa.target = "_blank"; wa.rel = "noopener";
+    const copy = button("Copy text", "ghost small");
+    function fill(m) {
+      ta.value = summary(m);
+      wa.href = "https://wa.me/?text=" + encodeURIComponent(ta.value);
+      btns.forEach((b, i) => b.classList.toggle("on", modes[i][0] === m));
+    }
+    copy.onclick = () => {
+      const ok = () => toast("Copied. Paste it in your group.");
+      const fallback = () => { ta.select(); try { document.execCommand("copy"); ok(); } catch { toast("Select the text and copy it."); } };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(ta.value).then(ok, fallback);
+      else fallback();
+    };
+    const actions = el("div", "actions");
+    const close = button("Close", "ghost small"); close.onclick = closeSheet;
+    actions.append(close, el("span", "spacer"), copy, wa);
+    s.append(seg, ta, actions);
+    fill("all");
+  });
+}
+
+/* ---------- Wire up ---------- */
+$("#title").textContent = EVENT_TITLE;
+document.title = EVENT_TITLE;
+if (EVENT_WHEN) $("#kicker").textContent = EVENT_WHEN;
+$("#filters").onclick = e => { const b = e.target.closest("button"); if (b) { state.filter = b.dataset.f; render(); } };
+$("#personFilter").onclick = () => { state.person = null; render(); };
+$("#youBtn").onclick = () => pickMe();
+$("#editBtn").onclick = () => { state.editing = !state.editing; render(); };
+$("#addBtn").onclick = () => { if (state.loaded) openAddSheet(); };
+$("#shareBtn").onclick = () => { if (state.loaded) openShare(); };
+
+let store = null;
+if (CONFIGURED) {
+  try { store = await firebaseStore(firebaseConfig); }
+  catch (err) {
+    console.error(err);
+    setLive("offline");
+    banner("<b>Couldn't reach the live list.</b> Check your internet connection, then reload the page.");
+  }
+} else {
+  store = localStore();
+  banner("<b>Demo mode.</b> Changes only save on this device. Paste your Firebase config at the top of the file so everyone shares one live list.");
+}
+
+if (store) {
+  const slow = setTimeout(() => {
+    if (!state.loaded) banner("<b>Still connecting…</b> If this doesn't load, check your connection or the database URL in the file.");
+  }, 10000);
+  store.subscribe(items => {
+    clearTimeout(slow);
+    if (store.mode === "live") banner("");
+    const clean = items
+      .filter(i => i && typeof i.label === "string" && i.label.trim())
+      .map(i => ({ ...i, cat: String(i.cat || "Other"), label: String(i.label), name: joinNames(splitNames(i.name)), note: String(i.note || "") }));
+    const prev = state.loaded ? state.byId : null;
+    state.items = clean;
+    state.byId = new Map(clean.map(i => [i.id, i]));
+    announce(prev, state.byId);
+    state.loaded = true;
+    render();
+  }, setLive, err => {
+    clearTimeout(slow);
+    console.error(err);
+    banner("<b>The database refused access.</b> Open Firebase → Realtime Database → Rules and paste the rules from the setup steps.");
+  });
+  store.presence(() => state.me, people => { state.here = people; renderHere(); });
+  run(store.seedIfEmpty(seedItems()));
+}
+render();
+</script>
+</body>
+</html>
